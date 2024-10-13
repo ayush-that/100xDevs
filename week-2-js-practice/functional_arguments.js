@@ -25,7 +25,7 @@ function div(a, b) {
 
 // functional arguments part
 function func(a, b, arg) {
-  ans = arg(a, b);
+  let ans = arg(a, b);
   return ans;
 }
 
