@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        .deleteButton {
+            background-color: blueviolet;
+        }
+
+        .h1 {
+            font-weight: 800;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="h1">Todo App</h1>
+    <input type="text"></input>
+    <button onclick="AddTodo()">Add Todo!</button>
+    <script>
+        let counter = 0;
+        function AddTodo() {
+            const inputElement = document.querySelector("input");
+            const Todo = inputElement.value;
+
+            const newDivElement = document.createElement("div");
+            newDivElement.setAttribute("id", counter);
+            counter = counter + 1;
+
+
+            newDivElement.innerHTML = "<div>" + Todo + `</div><div><button class="deleteButton" onclick='DeleteTodo(${newDivElement.id})'>Delete!</button></div>`;
+            document.querySelector("body").appendChild(newDivElement);
+        }
+        function DeleteTodo(id) {
+            const element = document.getElementById(id);
+            element.parentElement.removeChild(element);
+        }
+    </script>
+</body>
+
+</html>

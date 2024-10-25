@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Todo App</h1>
+    <div id="todos"></div>
+    <input type="text"></input>
+    <button onclick="addTodos()">Add</button>
+    <button onclick="deleteLastTodos()">Remove Last</button>
+    <script>
+        let todos = [];
+
+        function addTodos() {
+            todos.push({ title: document.querySelector("input").value })
+            render();
+        }
+
+        function deleteTodo() {
+            const id = event.target.parentElement.getAttribute("id");
+            todos.splice(id, 1);
+            render();
+        }
+
+        function deleteLastTodos() {
+            todos.splice(-1, 1);
+            render();
+        }
+
+        function createTodoComponent(todo, i) {
+            const div = document.createElement("div");
+            const h4 = document.createElement("h4");
+            const button = document.createElement("button");
+            button.innerHTML = "Delete Todo!"
+            button.setAttribute("onclick", "deleteTodo()");
+            h4.innerHTML = todo.title;
+            div.append(h4)
+            div.append(button)
+            div.setAttribute("id", i)
+            return div
+        }
+
+        function render() {
+            document.querySelector("#todos").innerHTML = "";
+            for (let i = 1; i <= todos.length; i++) {
+                const element = createTodoComponent(todos[i], i);
+                document.querySelector('#todos').appendChild(element);
+            }
+        }
+    </script>
+</body>
+
+</html>
