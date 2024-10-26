@@ -1,0 +1,22 @@
+[
+ {
+  "id": 1,
+  "text": "say hello to her",
+  "completed": 1
+ },
+ {
+  "id": 2,
+  "text": "say that i am a clown",
+  "completed": 1
+ },
+ {
+  "id": 3,
+  "text": "take the dog for a walk",
+  "completed": 0
+ },
+ {
+  "id": 4,
+  "text": "take the cat for a walk",
+  "completed": 1
+ }
+]
