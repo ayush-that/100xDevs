@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "name": "html-sum",
+  "version": "1.0.0",
+  "description": "1. Create a backend server in node.js that returns the sum endpoint\r 2. Write an HTML file, that hits the backend server using the 'fetch' api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

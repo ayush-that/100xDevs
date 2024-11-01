@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Function</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+
+<body>
+    <h1> Sum Function </h1>
+    First Value: <input type="text" id="first" placeholder="Enter a"> <br>
+    Second Value: <input type="text" id="second" placeholder="Enter b"> </input> <br> <br>
+    <button onclick="sendRequest()">Find the Sum</button>
+
+    <script>
+        function sendRequest() {
+            axios.post("http://localhost:3000/sum", {
+                a: document.getElementById("first").value,
+                b: document.getElementById("second").value,
+            });
+        }
+    </script>
+</body>
+
+</html>
