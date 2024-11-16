@@ -6,6 +6,27 @@ const JWT_SECRET = "ayush123";
 app.use(express.json());
 const users = [];
 
+function auth(req, res, next) {
+  const token = req.headers.token;
+  const decodedData = jwt.verify(token, JWT_SECRET);
+}
+
+function authCheck(req, res, next) {
+  // we have to verify the user in this
+  const username = req.body.username;
+  const password = req.body.password;
+
+  for (let i = 0; i < users.length; i++) {
+    if (username == users[i].username && password == users[i].password) {
+      next();
+    } else {
+      res.json({
+        message: "You are not authorized to view this content.",
+      });
+    }
+  }
+}
+
 // signup
 app.post("/signup", function (req, res) {
   const username = req.body.username;
@@ -28,6 +49,8 @@ app.post("/signup", function (req, res) {
     message: "You are signed in.",
   });
 });
+
+app.use(authCheck);
 
 // signin
 app.post("/signin", function (req, res) {
@@ -56,6 +79,8 @@ app.post("/signin", function (req, res) {
     res.json({ token: token });
   }
 });
+
+app.use(authCheck);
 
 // me
 app.get("/me", function (req, res) {
