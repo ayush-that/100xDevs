@@ -9,26 +9,24 @@ const users = [];
 function auth(req, res, next) {
   const token = req.headers.token;
   const decodedData = jwt.verify(token, JWT_SECRET);
-}
 
-function authCheck(req, res, next) {
-  // we have to verify the user in this
-  const username = req.body.username;
-  const password = req.body.password;
-
-  for (let i = 0; i < users.length; i++) {
-    if (username == users[i].username && password == users[i].password) {
-      next();
-    } else {
-      res.json({
-        message: "You are not authorized to view this content.",
-      });
-    }
+  if (decodedData.username) {
+    req.username = decodedData.username;
+    next();
+  } else {
+    res.json({
+      message: "You are not authorized.",
+    });
   }
 }
 
+function logger(req, res, next) {
+  console.log(`${req.method} request came.`);
+  next();
+}
+
 // signup
-app.post("/signup", function (req, res) {
+app.post("/signup", logger, function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -50,10 +48,8 @@ app.post("/signup", function (req, res) {
   });
 });
 
-app.use(authCheck);
-
 // signin
-app.post("/signin", function (req, res) {
+app.post("/signin", logger, function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -80,24 +76,16 @@ app.post("/signin", function (req, res) {
   }
 });
 
-app.use(authCheck);
-
 // me
-app.get("/me", function (req, res) {
-  // take the token from the user and decode
-  const token = req.headers.token;
-  const decodedData = jwt.verify(token, JWT_SECRET);
+app.get("/me", logger, auth, function (req, res) {
+  const currentUser = req.username;
+  let foundUser = null;
 
-  if (decodedData.username) {
-    // check if the user exists
-    let foundUser = null;
-    for (let i = 0; i < users.length; i++) {
-      if (users[i].username == decodedData.username) {
-        foundUser = users[i];
-      }
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].username == currentUser) {
+      foundUser = users[i];
     }
 
-    // return data to user
     res.json({
       username: foundUser.username,
       password: foundUser.password,
