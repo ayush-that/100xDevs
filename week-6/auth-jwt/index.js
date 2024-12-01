@@ -20,6 +20,10 @@ function auth(req, res, next) {
   }
 }
 
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
 function logger(req, res, next) {
   console.log(`${req.method} request came.`);
   next();
